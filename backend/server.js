@@ -2,9 +2,15 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import "dotenv/config"
-await mongoose.connect(`${process.env.MONGODB_URI}/bg-removal`).then(()=>{
-    console.log("mongodb is connected..")
-})
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI/bg-removal);
+    console.log('MongoDB connected');
+  } catch (err) {
+    console.error('Database connection error:', err);
+    throw err; // Ensure errors are thrown if the connection fails
+  }
+};
 const PORT=process.env.PORT||4000
 const app=express()
 app.use(express.json())
